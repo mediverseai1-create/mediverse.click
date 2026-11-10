@@ -10,15 +10,21 @@ export function aiConfigured() {
 export async function chat(messages: ChatMessage[]): Promise<string> {
   const base = (process.env.AI_BASE_URL || "https://api.openai.com/v1").replace(/\/$/, "");
   const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), 45_000);
+  const timer = setTimeout(() => ctrl.abort(), 50_000);
   try {
-    const res = await fetch(`${base}/chat/completions`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${process.env.AI_API_KEY}` },
-      body: JSON.stringify({ model: process.env.AI_MODEL, messages, temperature: 0.2, max_tokens: 800 }),
-      signal: ctrl.signal,
-    });
-    if (!res.ok) throw new Error(`AI provider returned ${res.status}`);
+    let res: Response | undefined;
+    // Providers occasionally return a temporary "busy" error (429/503): retry a couple of times.
+    for (let attempt = 0; attempt < 3; attempt++) {
+      res = await fetch(`${base}/chat/completions`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${process.env.AI_API_KEY}` },
+        body: JSON.stringify({ model: process.env.AI_MODEL, messages, temperature: 0.2, max_tokens: 2000 }),
+        signal: ctrl.signal,
+      });
+      if (res.ok || ![429, 500, 502, 503, 504].includes(res.status)) break;
+      await new Promise((r) => setTimeout(r, 1500 * (attempt + 1)));
+    }
+    if (!res || !res.ok) throw new Error(`AI provider returned ${res?.status}`);
     const json = (await res.json()) as { choices?: { message?: { content?: string } }[] };
     const text = json.choices?.[0]?.message?.content?.trim();
     if (!text) throw new Error("AI provider returned an empty answer");

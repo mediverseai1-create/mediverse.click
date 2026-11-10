@@ -23,7 +23,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
             <input name="q" type="search" placeholder="Search products or SKU" aria-label="Search inventory"
               className="h-10 w-full rounded border border-slate-300 pl-9 pr-3 text-sm focus:border-teal focus:outline-none focus:ring-1 focus:ring-teal" />
           </form>
-          <Link href="/dashboard/alerts" className="relative rounded p-2 hover:bg-slate-100" aria-label={`Notifications${unread ? `, ${unread} unread` : ""}`}>
+          <Link href="/dashboard/alerts" className="relative flex h-11 w-11 items-center justify-center rounded hover:bg-slate-100" aria-label={`Notifications${unread ? `, ${unread} unread` : ""}`}>
             <Bell className="h-5 w-5" />
             {!!unread && <span className="absolute -right-0.5 -top-0.5 min-w-5 rounded-full bg-red-600 px-1 text-center text-[11px] font-semibold leading-5 text-white">{unread > 99 ? "99+" : unread}</span>}
           </Link>

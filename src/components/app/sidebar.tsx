@@ -33,7 +33,7 @@ export function Sidebar({ isPro }: { isPro: boolean }) {
         const active = href === "/dashboard" ? path === href : path.startsWith(href);
         return (
           <Link key={href} href={href} onClick={() => setOpen(false)} aria-current={active ? "page" : undefined}
-            className={cn("flex items-center gap-3 rounded px-3 py-2 text-sm", active ? "bg-white/15 text-white" : "text-white/70 hover:bg-white/10 hover:text-white")}>
+            className={cn("flex items-center gap-3 rounded px-3 py-2.5 text-sm", active ? "bg-white/15 text-white" : "text-white/70 hover:bg-white/10 hover:text-white")}>
             <Icon className="h-4 w-4" aria-hidden /> <span className="flex-1">{label}</span>
             {pro && !isPro && <Lock className="h-3.5 w-3.5 opacity-70" aria-label="Professional plan" />}
           </Link>
@@ -45,7 +45,7 @@ export function Sidebar({ isPro }: { isPro: boolean }) {
     <>
       <div className="flex items-center justify-between bg-navy px-4 py-3 lg:hidden">
         <Logo light />
-        <button onClick={() => setOpen(!open)} aria-label="Toggle menu" aria-expanded={open} className="text-white">
+        <button onClick={() => setOpen(!open)} aria-label="Toggle menu" aria-expanded={open} className="-mr-2 flex h-11 w-11 items-center justify-center rounded text-white hover:bg-white/10">
           {open ? <X /> : <Menu />}
         </button>
       </div>

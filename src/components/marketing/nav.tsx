@@ -29,7 +29,7 @@ export function SiteNav() {
             <Link href="/login" className="rounded-full px-4 py-2 text-sm font-medium hover:bg-slate-100">Log in</Link>
             <Link href="/register" className="rounded-full bg-navy px-5 py-2.5 text-sm font-semibold text-white hover:bg-navy-700">Get Started</Link>
           </div>
-          <button className="mr-2 rounded-full p-2 md:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen(!open)}>
+          <button className="mr-1 flex h-11 w-11 items-center justify-center rounded-full hover:bg-slate-100 md:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen(!open)}>
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>

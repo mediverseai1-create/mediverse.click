@@ -48,6 +48,7 @@ export default async function InventoryPage({ searchParams }: { searchParams: Pr
           <Link href={sp.archived === "1" ? "/dashboard/inventory" : "/dashboard/inventory?archived=1"} className="inline-flex h-10 items-center rounded border border-slate-300 bg-white px-4 text-sm font-medium">
             {sp.archived === "1" ? "Active items" : "Archived"}
           </Link>
+          <Link href="/dashboard/inventory/import" className="inline-flex h-10 items-center rounded border border-slate-300 bg-white px-4 text-sm font-medium">Import</Link>
           <Link href="/dashboard/inventory/new" className="inline-flex h-10 items-center gap-2 rounded bg-teal px-4 text-sm font-medium text-white hover:bg-teal-600"><Plus className="h-4 w-4" />Add item</Link>
         </div>
       </div>

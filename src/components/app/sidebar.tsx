@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import {
-  LayoutDashboard, Boxes, CalendarClock, Bell, ShoppingCart, Truck, MapPin, BarChart3, Menu, X, Lock,
+  LayoutDashboard, Boxes, CalendarClock, Bell, ShoppingCart, Truck, MapPin, BarChart3, Menu, X, Lock, LineChart, Sparkles,
 } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
@@ -13,11 +13,13 @@ const NAV = [
   { href: "/dashboard", label: "Overview", icon: LayoutDashboard },
   { href: "/dashboard/inventory", label: "Inventory", icon: Boxes },
   { href: "/dashboard/expiry", label: "Expiry Tracking", icon: CalendarClock },
+  { href: "/dashboard/forecasting", label: "Demand Forecasting", icon: LineChart, pro: true },
   { href: "/dashboard/alerts", label: "Stock Alerts", icon: Bell },
   { href: "/dashboard/procurement", label: "Procurement", icon: ShoppingCart, pro: true },
   { href: "/dashboard/suppliers", label: "Suppliers", icon: Truck, pro: true },
   { href: "/dashboard/locations", label: "Locations", icon: MapPin },
   { href: "/dashboard/analytics", label: "Analytics & Reports", icon: BarChart3 },
+  { href: "/dashboard/assistant", label: "AI Inventory Assistant", icon: Sparkles },
 ];
 
 export function Sidebar({ isPro }: { isPro: boolean }) {

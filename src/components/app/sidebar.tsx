@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import {
-  LayoutDashboard, Boxes, CalendarClock, Bell, ShoppingCart, Truck, MapPin, BarChart3, Menu, X, Lock, LineChart, Sparkles,
+  LayoutDashboard, Boxes, CalendarClock, Bell, ShoppingCart, Truck, MapPin, BarChart3, Menu, X, Lock, LineChart, Sparkles, CreditCard, Settings,
 } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
@@ -20,6 +20,8 @@ const NAV = [
   { href: "/dashboard/locations", label: "Locations", icon: MapPin },
   { href: "/dashboard/analytics", label: "Analytics & Reports", icon: BarChart3 },
   { href: "/dashboard/assistant", label: "AI Inventory Assistant", icon: Sparkles },
+  { href: "/dashboard/billing", label: "Billing & Subscription", icon: CreditCard },
+  { href: "/dashboard/settings", label: "Settings", icon: Settings },
 ];
 
 export function Sidebar({ isPro }: { isPro: boolean }) {

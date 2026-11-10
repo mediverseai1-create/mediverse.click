@@ -7,7 +7,7 @@ import { createClient } from "@/lib/supabase/server";
 import { logoutAction } from "@/app/(auth)/actions";
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const ctx = await requireOrg();
+  const ctx = await requireOrg({ allowUnpaid: true });
   const supabase = await createClient();
   const { count: unread } = await supabase
     .from("inventory_alerts").select("id", { count: "exact", head: true })

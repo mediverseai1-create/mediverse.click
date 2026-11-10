@@ -5,8 +5,8 @@ import { createClient } from "@/lib/supabase/server";
 import { requireOrg } from "@/lib/org";
 import { zodFieldErrors } from "@/lib/validation";
 
-export async function authed() {
-  const ctx = await requireOrg();
+export async function authed(opts: { allowUnpaid?: boolean } = {}) {
+  const ctx = await requireOrg(opts);
   const supabase = await createClient();
   return { ctx, supabase };
 }

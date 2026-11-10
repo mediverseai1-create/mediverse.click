@@ -1,16 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState } from "react";
+import { Suspense, useActionState } from "react";
+import { useSearchParams } from "next/navigation";
 import { registerAction } from "../actions";
 import { Button, Field, FormMessage, Input, Select } from "@/components/ui";
 import { ORG_TYPES } from "@/lib/validation";
 
-export default function RegisterPage() {
+function RegisterForm() {
   const [state, action, pending] = useActionState(registerAction, undefined);
   const e = state?.fieldErrors ?? {};
+  const next = useSearchParams().get("next") ?? "";
   return (
     <form action={action} className="space-y-4">
+      <input type="hidden" name="next" value={next} />
       <h1 className="text-xl font-semibold">Create your Mediverse account</h1>
       <FormMessage error={state?.error} />
       <Field label="Full name" error={e.fullName}><Input name="fullName" autoComplete="name" required /></Field>
@@ -31,4 +34,8 @@ export default function RegisterPage() {
       <p className="text-center text-sm text-slate-600">Already have an account? <Link href="/login" className="font-medium text-teal-600 hover:underline">Sign in</Link></p>
     </form>
   );
+}
+
+export default function RegisterPage() {
+  return <Suspense><RegisterForm /></Suspense>;
 }

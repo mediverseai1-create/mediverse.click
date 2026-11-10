@@ -21,19 +21,21 @@ export async function registerAction(_: ActionState, fd: FormData): Promise<Acti
   });
   if (!parsed.success) return { fieldErrors: zodFieldErrors(parsed.error) };
   const d = parsed.data;
+  const rawNext = str(fd, "next");
+  const next = /^\/invite\/[0-9a-f-]{36}$/i.test(rawNext) ? rawNext : "/onboarding";
   const supabase = await createClient();
   const { data, error } = await supabase.auth.signUp({
     email: d.email,
     password: d.password,
     options: {
-      emailRedirectTo: `${APP_URL}/auth/callback?next=/onboarding`,
+      emailRedirectTo: `${APP_URL}/auth/callback?next=${next}`,
       data: { full_name: d.fullName, org_name: d.orgName, org_type: d.orgType, country: d.country, phone: d.phone ?? "" },
     },
   });
   if (error) return { error: "We could not create your account. Please check your details and try again." };
   // If email confirmation is on, no session exists yet.
   if (!data.session) redirect("/verify-email?email=" + encodeURIComponent(d.email));
-  redirect("/onboarding");
+  redirect(next);
 }
 
 export async function loginAction(_: ActionState, fd: FormData): Promise<ActionState> {

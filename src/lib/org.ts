@@ -1,4 +1,5 @@
 import "server-only";
+import { cache } from "react";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
@@ -19,7 +20,7 @@ export type OrgContext = {
 };
 
 /** Returns the signed-in user's organization context, or null if they have no organization yet. */
-export async function getOrgContext(): Promise<OrgContext | null> {
+export const getOrgContext = cache(async function getOrgContext(): Promise<OrgContext | null> {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/login");
@@ -53,7 +54,7 @@ export async function getOrgContext(): Promise<OrgContext | null> {
     periodEnd: sub?.current_period_end ?? null,
     cancelAtPeriodEnd: !!sub?.cancel_at_period_end,
   };
-}
+});
 
 /**
  * For pages inside the app. Requires an organization with finished onboarding AND an active paid plan.

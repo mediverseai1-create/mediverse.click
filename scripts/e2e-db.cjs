@@ -1,6 +1,7 @@
 ﻿const fs = require("fs");
 const path = require("path");
-// Run from the project root: node scripts/e2e-db.cjs (needs .env.local; creates and deletes temporary test users)`nconst root = process.cwd();
+// Run from the project root: node scripts/e2e-db.cjs (needs .env.local; creates and deletes temporary test users)
+const root = process.cwd();
 const { createClient } = require(path.join(root, "node_modules/@supabase/supabase-js"));
 const env = Object.fromEntries(fs.readFileSync(path.join(root, ".env.local"), "utf8").split(/\r?\n/).filter((l) => l.includes("=")).map((l) => { const i = l.indexOf("="); return [l.slice(0, i), l.slice(i + 1)]; }));
 const URL = env.NEXT_PUBLIC_SUPABASE_URL, ANON = env.NEXT_PUBLIC_SUPABASE_ANON_KEY, SVC = env.SUPABASE_SERVICE_ROLE_KEY;
